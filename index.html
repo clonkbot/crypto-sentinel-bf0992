@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CryptoSentinel | AI Trading Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --cyan-glow: #00f5ff;
+        --coral-hot: #ff6b4a;
+        --deep-void: #0a0a0f;
+        --panel-dark: #12121a;
+        --panel-lighter: #1a1a25;
+        --text-muted: #5a5a70;
+        --success-green: #00ff88;
+        --warning-amber: #ffaa00;
+      }
+      
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--cyan-glow) var(--panel-dark);
+      }
+      
+      *::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      *::-webkit-scrollbar-track {
+        background: var(--panel-dark);
+      }
+      
+      *::-webkit-scrollbar-thumb {
+        background: var(--cyan-glow);
+        border-radius: 2px;
+      }
+      
+      body {
+        font-family: 'JetBrains Mono', monospace;
+        background: var(--deep-void);
+        overflow-x: hidden;
+      }
+      
+      .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+      
+      .glow-cyan {
+        text-shadow: 0 0 10px var(--cyan-glow), 0 0 20px var(--cyan-glow), 0 0 40px var(--cyan-glow);
+      }
+      
+      .glow-coral {
+        text-shadow: 0 0 10px var(--coral-hot), 0 0 20px var(--coral-hot);
+      }
+      
+      .box-glow-cyan {
+        box-shadow: 0 0 20px rgba(0, 245, 255, 0.3), inset 0 0 20px rgba(0, 245, 255, 0.05);
+      }
+      
+      .box-glow-coral {
+        box-shadow: 0 0 20px rgba(255, 107, 74, 0.3), inset 0 0 20px rgba(255, 107, 74, 0.05);
+      }
+      
+      .neural-bg {
+        background: 
+          radial-gradient(ellipse at 20% 80%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
+          radial-gradient(ellipse at 80% 20%, rgba(255, 107, 74, 0.06) 0%, transparent 50%),
+          radial-gradient(ellipse at 50% 50%, rgba(0, 245, 255, 0.03) 0%, transparent 70%),
+          var(--deep-void);
+      }
+      
+      .scan-line {
+        background: linear-gradient(to bottom, 
+          transparent 0%, 
+          rgba(0, 245, 255, 0.03) 50%, 
+          transparent 100%);
+        animation: scan 4s linear infinite;
+      }
+      
+      @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100vh); }
+      }
+      
+      @keyframes pulse-ring {
+        0% { transform: scale(0.8); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      
+      @keyframes ticker-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      
+      .ticker-animate {
+        animation: ticker-scroll 30s linear infinite;
+      }
+      
+      .confidence-ring {
+        stroke-dasharray: 283;
+        stroke-dashoffset: 283;
+        transition: stroke-dashoffset 1s ease-out;
+      }
+      
+      .grid-pattern {
+        background-image: 
+          linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .card-hover:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+      }
+      
+      .btn-cyber {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .btn-cyber::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s ease;
+      }
+      
+      .btn-cyber:hover::before {
+        left: 100%;
+      }
+      
+      .status-dot {
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      .fade-in {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .stagger-1 { animation-delay: 0.1s; }
+      .stagger-2 { animation-delay: 0.2s; }
+      .stagger-3 { animation-delay: 0.3s; }
+      .stagger-4 { animation-delay: 0.4s; }
+      .stagger-5 { animation-delay: 0.5s; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
